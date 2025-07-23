@@ -2,24 +2,28 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_feed">
 
+    <!-- 피드 Fragment -->
+    <!-- android:name은 작성한 Fragment또는 기존에 생성 프래그먼트를 연결. -->
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_feed"
         android:name="com.lowasis.matchu.ui.feed.FeedFragment"
-        android:label="홈"
-        tools:layout="@layout/fragment_home" />
+        android:label="Feed"
+        tools:layout="@layout/fragment_feed" />
 
+    <!-- 대시보드 Fragment (예시) -->
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.lowasis.matchu.ui.dashboard.DashboardFragment"
-        android:label="데쉬보드"
+        android:label="대시보드"
         tools:layout="@layout/fragment_dashboard" />
 
+    <!-- 알림 Fragment (예시) -->
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.lowasis.matchu.ui.notifications.NotificationsFragment"
-        android:label="공지사항"
+        android:label="알림"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
