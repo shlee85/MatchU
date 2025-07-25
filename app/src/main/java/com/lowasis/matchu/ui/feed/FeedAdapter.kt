@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lowasis.matchu.R
@@ -57,6 +58,18 @@ class FeedAdapter(private var items: List<FeedItem>) :
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(binding.imgMain)
+
+            // 항목 클릭 시 BottomSheet 팝업 열기
+            binding.root.setOnClickListener {
+                val fragment = FeedBottomSheetDetailDialogFragment.newInstance(
+                    item.text, item.imageResId
+                )
+
+                fragment.show(
+                    (binding.root.context as AppCompatActivity).supportFragmentManager,
+                    "FeedDetailBottomSheet"
+                )
+            }
         }
     }
 
