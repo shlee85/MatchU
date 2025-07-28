@@ -10,15 +10,15 @@
     <fragment
         android:id="@+id/navigation_feed"
         android:name="com.lowasis.matchu.ui.feed.FeedFragment"
-        android:label="Feed"
+        android:label="게시글"
         tools:layout="@layout/fragment_feed" />
 
     <!-- 대시보드 Fragment (예시) -->
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.lowasis.matchu.ui.dashboard.DashboardFragment"
-        android:label="대시보드"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.lowasis.matchu.ui.nearFragment.NearFragment"
+        android:label="주변찾기"
+        tools:layout="@layout/fragment_near" />
 
     <!-- 알림 Fragment (예시) -->
     <fragment

@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.lowasis.matchu.ui.dashboard.DashboardFragment"
-        android:label="데쉬보드"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.lowasis.matchu.ui.nearFragment.NearFragment"
+        android:label="주변찾기"
+        tools:layout="@layout/fragment_near" />
 
     <fragment
         android:id="@+id/navigation_notifications"

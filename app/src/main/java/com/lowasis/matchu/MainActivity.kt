@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // 하단 메뉴 클릭 시 알맞은 Fragment로 자동 전환되도록 해줌.
         navView.setupWithNavController(navController)
     }
 }
