@@ -1,24 +1,34 @@
 package com.lowasis.matchu.ui.nearFragment
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.location.Location
 import android.location.LocationListener
+import android.location.LocationRequest
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresPermission
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.lowasis.matchu.R
 import com.lowasis.matchu.databinding.FragmentNearBinding
+
 
 class NearFragment : Fragment(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener, LocationListener {
@@ -29,11 +39,7 @@ class NearFragment : Fragment(), OnMapReadyCallback,
     private var gMap : GoogleMap? = null
 
     private var binding: FragmentNearBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    //private val binding get() = _binding!!
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +56,9 @@ class NearFragment : Fragment(), OnMapReadyCallback,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        getCurrentLocation()
     }
 
     override fun onDestroyView() {
@@ -81,7 +90,6 @@ class NearFragment : Fragment(), OnMapReadyCallback,
         Log.i(TAG, "onLocationChanged!!")
     }
 
-
     override fun onResume() {
         super.onResume()
         Log.i(TAG, "onResume()")
@@ -108,5 +116,32 @@ class NearFragment : Fragment(), OnMapReadyCallback,
         Log.i(TAG, "onLowMemory()")
 
         binding?.mapView?.onLowMemory()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                val currentLatLng = LatLng(location.latitude, location.longitude)
+
+                // 지도에 마커 추가
+                binding?.mapView?.getMapAsync { googleMap ->
+                    googleMap.clear() // 기존 마커 제거
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(currentLatLng)
+                            .title("내 위치")
+                    )
+
+                    // 카메라 위치 이동 (애니메이션-부드럽게)
+                    googleMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f)
+                    )
+                }
+            } else {
+                // 위치 못 받아왔을 때 처리 (예: 토스트)
+                Toast.makeText(requireContext(), "현재 위치를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
