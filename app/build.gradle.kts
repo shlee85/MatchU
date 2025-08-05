@@ -56,6 +56,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation("com.intuit.sdp:sdp-android:1.1.1")
+    implementation("com.intuit.ssp:ssp-android:1.1.1")
+
     implementation("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 }

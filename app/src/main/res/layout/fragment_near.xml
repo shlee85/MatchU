@@ -11,6 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        android:enabled="true" />
+        android:enabled="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRefreshLcation"
+        android:src="@drawable/ic_refresh"
+        android:contentDescription="내 위치 새로고침"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
